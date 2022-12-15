@@ -1,0 +1,6 @@
+.registration__inner {
+    display: flex;
+    gap: 150px;
+    justify-content: center;
+}
+
