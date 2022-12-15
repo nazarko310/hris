@@ -19,6 +19,8 @@ export default function Registration({onSubmit}) {
             alert('Паролі не співпадають');
             return;
         }
+
+
         try {
             await onSubmit(email, password, userName)
             setEmail('')

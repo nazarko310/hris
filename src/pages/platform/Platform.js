@@ -1,9 +1,14 @@
+
+import './Platform.css'
+
+import {Header} from "../../commponents/Header";
+
 export default function Platform() {
+
     return (
         <>
-            {
-                <p>Hello users</p>
-            }
+           <Header/>
+            <div>{localStorage.getItem('email')}</div>
         </>
     )
 }

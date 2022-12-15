@@ -3,14 +3,16 @@ import './App.css'
 
 import {useDispatch, useSelector} from "react-redux";
 import Registration from "./pages/registration/Registration";
-import Login from "./pages/login/Login";
-import {Navigate, Route, Routes} from "react-router-dom";
+import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
 import Platform from "./pages/platform/Platform";
 import {MainLayout} from "./layouts";
+import {useEffect} from "react";
+import {Login} from "./pages/login/Login";
 
-function App() {
+export default function App() {
 
-
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const onUserCreat = async (email, password, userName) => {
 
@@ -23,6 +25,13 @@ function App() {
                 'Content-Type': 'application/json'
             }
         })
+
+        if (resp.status === 200) {
+            navigate('/login')
+        } else {
+            alert('User is already register')
+
+        }
         const data = await resp.json();
 
     }
@@ -36,10 +45,22 @@ function App() {
             headers: {
                 'Content-Type': 'application/json'
             }
+
         })
+
+        if (resp.status === 200) {
+            navigate('/platform');
+        } else {
+            alert('Password or email is incorrect')
+        }
+
         const data = await resp.json();
 
     }
+
+    useEffect(() => {
+        onUserLogin();
+    }, [])
 
 
     return (
@@ -61,5 +82,3 @@ function App() {
     );
 
 }
-
-export default App;

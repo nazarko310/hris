@@ -1,14 +1,15 @@
 import './Login.css'
 import '../index.css'
 
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
+import {useDispatch} from "react-redux";
 
 
 import photo from "../../sourse/photo_2022-12-10_00-27-36.jpg";
 
 
-export default function Login({onSubmit}) {
+const Login = ({onSubmit}) => {
 
 
     const [email, setEmail] = useState('');
@@ -18,12 +19,14 @@ export default function Login({onSubmit}) {
     const handleLogin = async (e) => {
         e.preventDefault();
         if (!email || !password) return;
-        // navigate('/platform')
 
         try {
             await onSubmit(email, password)
             setEmail('')
             setPassword('')
+
+            localStorage.setItem('password', password)
+            localStorage.setItem('email', email)
         } catch (e) {
             console.log(e)
         }
@@ -57,3 +60,5 @@ export default function Login({onSubmit}) {
 
     )
 }
+
+export {Login}
