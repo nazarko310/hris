@@ -1,13 +1,9 @@
+import {useState} from "react";
+import {Link} from "react-router-dom";
+
 import './Login.css'
 import '../index.css'
-
-import {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
-import {useDispatch} from "react-redux";
-
-
 import photo from "../../sourse/photo_2022-12-10_00-27-36.jpg";
-
 
 const Login = ({onSubmit}) => {
 
@@ -33,15 +29,16 @@ const Login = ({onSubmit}) => {
     }
 
     return (
+
         <div className='login__inner'>
             <form className='form form-login' onSubmit={handleLogin}>
                 <p className='form__title'>Log in</p>
-                <div className="form__email">
+                <div className="form__email from-inputBlock">
                     <label htmlFor='email'>Email<span>*</span></label>
                     <input type='email' value={email} onChange={({target: {value}}) => setEmail(value)} id='email'
                            required/>
                 </div>
-                <div className="form__password">
+                <div className="form__password from-inputBlock">
                     <label htmlFor='password'>Password<span>*</span></label>
                     <input type='password' value={password} onChange={({target: {value}}) => setPassword(value)}
                            id='password' required/>
@@ -56,7 +53,6 @@ const Login = ({onSubmit}) => {
                 <img src={photo} alt=""/>
             </div>
         </div>
-
 
     )
 }

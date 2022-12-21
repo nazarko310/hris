@@ -1,26 +1,45 @@
 import './App.css'
 
-
-import {useDispatch, useSelector} from "react-redux";
 import Registration from "./pages/registration/Registration";
 import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
 import Platform from "./pages/platform/Platform";
 import {MainLayout} from "./layouts";
-import {useEffect} from "react";
 import {Login} from "./pages/login/Login";
+import {useEffect, useState} from "react";
+import CalendarPage from "./pages/calendar/CalendarPage";
+import PlannedVacations from "./pages/PlannedVacations/PlannedVacations";
+import Admin from "./pages/admin/Admin";
 
 export default function App() {
 
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const [users, setUsers] = useState([]);
+    const [calendarDate, setCalendarDate] = useState([]);
 
-    const onUserCreat = async (email, password, userName) => {
+
+    useEffect(() => {
+        fetch('http://localhost:5000/users')
+            .then(value => value.json())
+            .then(response => {
+                setUsers(response)
+            });
+    }, [])
+
+    useEffect(() => {
+        fetch('http://localhost:5000/planned-vacation')
+            .then(value => value.json())
+            .then(response => {
+                setCalendarDate(response)
+            });
+    }, [])
+
+    const onUserCreat = async (email, password, userName, secondName, department, position) => {
 
         if (!email || !password || !userName) return;
 
         const resp = await fetch('http://localhost:5000/registration', {
             method: 'POST',
-            body: JSON.stringify({email, password, userName}),
+            body: JSON.stringify({email, password, userName, secondName, department, position}),
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -28,11 +47,9 @@ export default function App() {
 
         if (resp.status === 200) {
             navigate('/login')
-        } else {
+        } else if (resp.status === 400) {
             alert('User is already register')
-
         }
-        const data = await resp.json();
 
     }
     const onUserLogin = async (email, password) => {
@@ -50,18 +67,13 @@ export default function App() {
 
         if (resp.status === 200) {
             navigate('/platform');
-        } else {
+        } else if (resp.status === 400) {
             alert('Password or email is incorrect')
+        } else if (email === 'admin@gmail.com' && password === 'admin') {
+            navigate('/admin')
         }
 
-        const data = await resp.json();
-
     }
-
-    useEffect(() => {
-        onUserLogin();
-    }, [])
-
 
     return (
         <div className='main'>
@@ -72,7 +84,11 @@ export default function App() {
                             <Route index element={<Navigate to={"/login"}/>}/>
                             <Route path='registration' element={<Registration onSubmit={onUserCreat}/>}/>
                             <Route path='login' element={<Login onSubmit={onUserLogin}/>}/>
-                            <Route path='platform' element={<Platform/>}/>
+                            <Route path='platform' element={<Platform users={users}/>}/>
+                            <Route path='calendar' element={<CalendarPage users={users}/>}/>
+                            <Route path='planned-vacation'
+                                   element={<PlannedVacations users={users} calendarDate={calendarDate}/>}/>
+                            <Route path='admin' element={<Admin users={users} calendarDate={calendarDate}/>}/>
                         </Route>
                     </Routes>
 
@@ -80,5 +96,4 @@ export default function App() {
             </div>
         </div>
     );
-
 }

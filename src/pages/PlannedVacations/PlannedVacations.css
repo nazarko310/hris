@@ -1,0 +1,21 @@
+.vacation{
+    height: 100px;
+    width: 400px;
+
+    margin: 20px auto 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.red{
+    background-color: #ff0000;
+}
+
+.yellow{
+    background-color: #ffcc00;
+
+}

@@ -1,1 +1,58 @@
+.intro {
+    position: relative;
+    background: url("../../sourse/intro-bg.jpg") center no-repeat;
+    background-size: cover;
+    height: 500px;
+    width: 100%;
+    z-index: 1;
+}
 
+.intro__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #00000080;
+    content: '';
+    z-index: -1;
+}
+
+.userLogin {
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.userLogin p {
+    color: #ffffff;
+    text-transform: capitalize;
+}
+
+.userLogin__name {
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+.userLogin__img {
+    margin-bottom: 20px;
+    width: 40%;
+}
+
+.team__title{
+    text-align: center;
+
+    font-size: 40px;
+}
+
+.team__inner {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+
+    text-align: center;
+}
