@@ -1,13 +1,11 @@
 import logo from "../../sourse/logo.png";
 import {Link} from "react-router-dom";
 import './Header.css'
-import PlannedVacations from "../../pages/PlannedVacations/PlannedVacations";
 
 
 const Header = () => {
     function localStorageClear() {
         localStorage.clear()
-        return;
     }
 
     return (

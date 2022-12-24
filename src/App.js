@@ -67,13 +67,15 @@ export default function App() {
 
         if (resp.status === 200) {
             navigate('/platform');
-        } else if (resp.status === 400) {
+        } else if (resp.status === 404 && email !== 'admin@gmail.com' && password !== 'admin') {
             alert('Password or email is incorrect')
         } else if (email === 'admin@gmail.com' && password === 'admin') {
             navigate('/admin')
         }
 
     }
+
+
 
     return (
         <div className='main'>
@@ -88,12 +90,14 @@ export default function App() {
                             <Route path='calendar' element={<CalendarPage users={users}/>}/>
                             <Route path='planned-vacation'
                                    element={<PlannedVacations users={users} calendarDate={calendarDate}/>}/>
-                            <Route path='admin' element={<Admin users={users} calendarDate={calendarDate}/>}/>
+                            <Route path='admin/*'
+                                   element={<Admin users={users} calendarDate={calendarDate}/>}/>
                         </Route>
                     </Routes>
 
                 </div>
             </div>
         </div>
-    );
+    )
+        ;
 }
